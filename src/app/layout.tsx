@@ -2,6 +2,7 @@ import ConvexClerkProvider from "@/components/providers/ConvexClerkProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import Navbar from "@/components/ui/Navbar";
 import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
+import "@stream-io/video-react-sdk/dist/css/styles.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
