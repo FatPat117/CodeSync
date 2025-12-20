@@ -1,6 +1,6 @@
 import Navbar from "@/components/ui/Navbar";
-import ConvexClerkProvider from "@/components/ui/providers/ConvexClerkProvider";
-import { ThemeProvider } from "@/components/ui/providers/ThemeProvider";
+import ConvexClerkProvider from "@/components/providers/ConvexClerkProvider";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
