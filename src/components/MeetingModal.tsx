@@ -29,7 +29,7 @@ const MeetingModal = ({ isOpen, onClose, title, isJoinMeeting }: MeetingModalPro
         };
 
         return (
-                <Dialog open={isOpen} onOpenChange={onClose}>
+                <Dialog open={isOpen} onOpenChange={onClose}> 
                         <DialogContent className="sm:max-w-[425px]">
                                 <DialogHeader>
                                         <DialogTitle>{title}</DialogTitle>

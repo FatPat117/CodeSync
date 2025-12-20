@@ -1,5 +1,10 @@
+
+
 const MeetingOutletPage = () => {
-        return <div></div>;
+     
+        return <div>
+                meeting page
+        </div>;
 };
 
 export default MeetingOutletPage;
