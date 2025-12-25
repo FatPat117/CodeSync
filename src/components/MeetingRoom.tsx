@@ -2,6 +2,7 @@ import { CallControls, CallParticipantsList, CallingState, PaginatedGridLayout, 
 import { LayoutListIcon, LoaderIcon, UsersIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import EndCallButton from "./EndCallButton";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./ui/resizable";
@@ -70,7 +71,7 @@ const MeetingRoom = () => {
                           <UsersIcon className="size-4"/>
                         </Button>
 
-                        <button>end call btn</button>
+                        <EndCallButton/>
                       </div>
                   </div>
               </div>
