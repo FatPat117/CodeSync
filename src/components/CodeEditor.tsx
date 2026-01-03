@@ -135,7 +135,7 @@ const CodeEditor = () => {
       </ResizablePanel>
       <ResizableHandle withHandle={true}/>
      {/* Code editor */}
-    <ResizablePanel defaultSize={60} maxSize={100} className="flex flex-col overflow-hidden">
+    <ResizablePanel defaultSize={60} maxSize={100} className="flex flex-col ">
       <div className="flex-1 w-full h-full">
         <Editor
         height="100%"
@@ -151,7 +151,9 @@ const CodeEditor = () => {
           lineNumber:'on',
           scrollBeyondLastLine: false,
           automaticLayout: true,
-          padding:{top:16,bottom:16},
+          padding:{top:32,bottom:16},
+          borderRadius:10,
+          margin:16,
           wordWrap:'on',
           wrappingIndent:'indent'
         }}
