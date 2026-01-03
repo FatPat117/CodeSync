@@ -2,6 +2,7 @@ import { CallControls, CallParticipantsList, CallingState, PaginatedGridLayout, 
 import { LayoutListIcon, LoaderIcon, UsersIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import CodeEditor from "./CodeEditor";
 import EndCallButton from "./EndCallButton";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
@@ -81,7 +82,7 @@ const MeetingRoom = () => {
 
         {/* Right side */}
         <ResizablePanel defaultSize={65} minSize={25} maxSize={90}>
-          <div>Code editor will go here</div>
+          <CodeEditor/>
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
