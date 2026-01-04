@@ -1,5 +1,6 @@
 import { useCall, useCallStateHooks } from '@stream-io/video-react-sdk';
 import { useMutation, useQuery } from 'convex/react';
+import { skipToken } from 'convex/react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import { api } from '../../convex/_generated/api';
@@ -13,9 +14,10 @@ const EndCallButton = () => {
 
   const updateInterviewStatus = useMutation(api.interview.updateInterviewStatus);
 
-  const interview = useQuery(api.interview.getInterviewByStreamId, {
-    streamCallId: call?.id || "",
-  });
+  const interview = useQuery(
+    api.interview.getInterviewByStreamId,
+    call?.id ? { streamCallId: call.id } : skipToken
+  );
 
   if(!call || !interview) return null;
 

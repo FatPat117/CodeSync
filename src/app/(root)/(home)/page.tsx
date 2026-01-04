@@ -5,15 +5,21 @@ import MeetingCard from "@/components/MeetingCard";
 import MeetingModal from "@/components/MeetingModal";
 import { QUICK_ACTIONS } from "@/constants";
 import { useUserRole } from "@/hooks/useUserRole";
+import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
+import { skipToken } from "convex/react";
 import { Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { api } from "../../../../convex/_generated/api";
 const HomePage = () => {
         const router = useRouter();
+        const { user, isLoaded: userLoaded } = useUser();
         const { isInterviewer, isCandidate, isLoading } = useUserRole();
-        const interviews = useQuery(api.interview.getMyInterviews);
+        const interviews = useQuery(
+                api.interview.getMyInterviews,
+                userLoaded && user ? undefined : skipToken
+        );
         const [showModal, setShowModal] = useState(false);
         const [modalType, setModalType] = useState<"start" | "join">();
 
