@@ -60,88 +60,86 @@ const CommentDialog = ({interviewId}:{interviewId:Id<'interviews'>}) => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className='sm:max-w-[600px]'>
+      <DialogContent className='sm:max-w-[600px] max-h-[90vh] flex flex-col'>
           <DialogHeader>
             <DialogTitle>Interview Comment</DialogTitle>
           </DialogHeader>
 
-          <div className='space-y-6'>
-            {existingComments.length > 0 && (
-              <div className='space-y-4'>
-                  <div className='flex items-center justify-between'>
-                    <h4 className='text-sm font-medium'>Previous Comment</h4>
-                    <Badge variant={'outline'}>
-                      {existingComments.length} Comment{existingComments.length > 1 ? 's' : ''}
-                    </Badge>
-                  </div>
+          <ScrollArea className="flex-1 pr-4">
+            <div className='space-y-6'>
+              {existingComments.length > 0 && (
+                <div className='space-y-4'>
+                    <div className='flex items-center justify-between'>
+                      <h4 className='text-sm font-medium'>Previous Comment</h4>
+                      <Badge variant={'outline'}>
+                        {existingComments.length} Comment{existingComments.length > 1 ? 's' : ''}
+                      </Badge>
+                    </div>
 
-                  {/* Display Existing Comments */}
-                  <ScrollArea className="h-[240px]">
-                <div className="space-y-4">
-                  {existingComments.map((comment, index) => {
-                    const interviewer = getInterviewerInfo(users, comment.interviewerId);
-                    return (
-                      <div key={index} className="rounded-lg border p-4 space-y-3">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <Avatar className="h-8 w-8">
-                              <AvatarImage src={interviewer.image} />
-                              <AvatarFallback>{interviewer.initials}</AvatarFallback>
-                            </Avatar>
-                            <div>
-                              <p className="text-sm font-medium">{interviewer.name}</p>
-                              <p className="text-xs text-muted-foreground">
-                                {format(comment._creationTime, "MMM d, yyyy • h:mm a")}
-                              </p>
+                    {/* Display Existing Comments */}
+                    <div className="space-y-4">
+                      {existingComments.map((comment, index) => {
+                        const interviewer = getInterviewerInfo(users, comment.interviewerId);
+                        return (
+                          <div key={index} className="rounded-lg border p-4 space-y-3">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <Avatar className="h-8 w-8">
+                                  <AvatarImage src={interviewer.image} />
+                                  <AvatarFallback>{interviewer.initials}</AvatarFallback>
+                                </Avatar>
+                                <div>
+                                  <p className="text-sm font-medium">{interviewer.name}</p>
+                                  <p className="text-xs text-muted-foreground">
+                                    {format(comment._creationTime, "MMM d, yyyy • h:mm a")}
+                                  </p>
+                                </div>
+                              </div>
+                              {renderStars(comment.rating)}
                             </div>
+                            <p className="text-sm text-muted-foreground">{comment.content}</p>
                           </div>
-                          {renderStars(comment.rating)}
-                        </div>
-                        <p className="text-sm text-muted-foreground">{comment.content}</p>
-                      </div>
-                    );
-                  })}
-
-                  
+                        );
+                      })}
+                    </div>
                 </div>
-              </ScrollArea>
+              )}
+
+
+              <div className='space-y-4'>
+                    {/* RATING */}
+              <div className="space-y-2">
+                <Label>Rating</Label>
+                <Select value={rating} onValueChange={setRating}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select rating" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[1, 2, 3, 4, 5].map((value) => (
+                      <SelectItem key={value} value={value.toString()}>
+                        <div className="flex items-center gap-2">{renderStars(value)}</div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-            )}
 
-
-            <div className='space-y-4'>
-                  {/* RATING */}
-            <div className="space-y-2">
-              <Label>Rating</Label>
-              <Select value={rating} onValueChange={setRating}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select rating" />
-                </SelectTrigger>
-                <SelectContent>
-                  {[1, 2, 3, 4, 5].map((value) => (
-                    <SelectItem key={value} value={value.toString()}>
-                      <div className="flex items-center gap-2">{renderStars(value)}</div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {/* COMMENT */}
+              <div className="space-y-2">
+                <Label>Your Comment</Label>
+                <Textarea
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder="Share your detailed comment about the candidate..."
+                  className="h-32"
+                />
+              </div>
+              </div>
             </div>
-
-            {/* COMMENT */}
-            <div className="space-y-2">
-              <Label>Your Comment</Label>
-              <Textarea
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder="Share your detailed comment about the candidate..."
-                className="h-32"
-              />
-            </div>
-            </div>
-          </div>
+          </ScrollArea>
 
           {/* BUTTONS */}
-        <DialogFooter>
+        <DialogFooter className="mt-4">
           <Button variant="outline" onClick={() => setIsOpen(false)}>
             Cancel
           </Button>
