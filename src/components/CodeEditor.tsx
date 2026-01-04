@@ -148,12 +148,10 @@ const CodeEditor = () => {
             enabled: false,
           },
           fontSize: 18,
-          lineNumber:'on',
+          lineNumbers: 'on',
           scrollBeyondLastLine: false,
           automaticLayout: true,
           padding:{top:32,bottom:16},
-          borderRadius:10,
-          margin:16,
           wordWrap:'on',
           wrappingIndent:'indent'
         }}

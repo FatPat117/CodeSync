@@ -13,7 +13,7 @@ type User = Doc<"users">;
 export const groupInterviews = (interviews: Interview[]) => {
   if (!interviews) return {};
 
-  return interviews.reduce((acc: any, interview: Interview) => {
+  return interviews.reduce((acc: Record<string, Interview[]>, interview: Interview) => {
     const date = new Date(interview.startTime);
     const now = new Date();
 

@@ -1,5 +1,6 @@
 'use client'
 
+import CommentDialog from "@/components/CommentDialog";
 import LoaderUI from "@/components/LoaderUI";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +15,6 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { api } from "../../../../convex/_generated/api";
 import { Doc, Id } from "../../../../convex/_generated/dataModel";
-import CommentDialog from "@/components/CommentDialog";
 
 type Interview = Doc<"interviews">;
 const DashboardPage = () => {
@@ -58,7 +58,7 @@ const DashboardPage = () => {
                                                       {
                                                         const candidateInfo = getCandidateInfo(users, interview.candidateId);
                                                         const startTime = new Date(interview.startTime)
-                                                        return (<Card className="hover:shadow-md transition-all">
+                                                        return (<Card key={interview._id} className="hover:shadow-md transition-all">
                                                                 {/* Candidate Info */}
                                                                 <CardHeader className="p-4">
                                                                         <div className="flex items-center gap-3">
