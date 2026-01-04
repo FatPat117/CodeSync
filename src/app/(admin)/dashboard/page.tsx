@@ -14,6 +14,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { api } from "../../../../convex/_generated/api";
 import { Doc, Id } from "../../../../convex/_generated/dataModel";
+import CommentDialog from "@/components/CommentDialog";
 
 type Interview = Doc<"interviews">;
 const DashboardPage = () => {
@@ -105,7 +106,7 @@ const DashboardPage = () => {
                                                                 </Button>
                                                                 </div>
                                                                 )}
-                                                                {/* <CommentDialog interviewId={interview._id} /> */}
+                                                                <CommentDialog interviewId={interview._id} />
                                                                 </CardFooter>
                                                         </Card>)
                                                       }
