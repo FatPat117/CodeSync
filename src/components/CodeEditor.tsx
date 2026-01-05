@@ -1,6 +1,7 @@
 import { CODING_QUESTIONS, LANGUAGES } from "@/constants";
 import Editor from '@monaco-editor/react';
 import { AlertCircleIcon, BookIcon, LightbulbIcon } from "lucide-react";
+import NextImage from "next/image";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./ui/resizable";
@@ -55,17 +56,17 @@ const CodeEditor = () => {
 
                 {/* Select Language */}
                 <Select value={language} onValueChange={handleLanguageChange}>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue> <div className="flex items-center gap-2">
-                        <img src={`/${language}.png`} alt={language} className="size-5 object-contain" />
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue> <div className="flex items-center gap-2">
+                        <NextImage src={`/${language}.png`} alt={language} width={20} height={20} className="object-contain" />
                         {LANGUAGES.find((l) => l.id === language)?.name}
                       </div>
                       </SelectValue>
-                  </SelectTrigger>
-                  <SelectContent>
-                    {LANGUAGES.map((language) => (<SelectItem key={language.id} value={language.id}>
-                      <div className="flex items-center gap-2">
-                        <img src={`/${language.id}.png`} alt={language.name} className="size-5 object-contain" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {LANGUAGES.map((language) => (<SelectItem key={language.id} value={language.id}>
+                        <div className="flex items-center gap-2">
+                        <NextImage src={`/${language.id}.png`} alt={language.name} width={20} height={20} className="object-contain" />
                         {language.name}
                       </div>
                       </SelectItem>))}

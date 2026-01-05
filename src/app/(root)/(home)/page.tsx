@@ -5,21 +5,16 @@ import MeetingCard from "@/components/MeetingCard";
 import MeetingModal from "@/components/MeetingModal";
 import { QUICK_ACTIONS } from "@/constants";
 import { useUserRole } from "@/hooks/useUserRole";
-import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
-import { skipToken } from "convex/react";
 import { Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { api } from "../../../../convex/_generated/api";
 const HomePage = () => {
         const router = useRouter();
-        const { user, isLoaded: userLoaded } = useUser();
-        const { isInterviewer, isCandidate, isLoading } = useUserRole();
-        const interviews = useQuery(
-                api.interview.getMyInterviews,
-                userLoaded && user ? undefined : skipToken
-        );
+        const { isInterviewer, isLoading } = useUserRole();
+        // Query will return null if user is not authenticated (handled in Convex function)
+        const interviews = useQuery(api.interview.getMyInterviews);
         const [showModal, setShowModal] = useState(false);
         const [modalType, setModalType] = useState<"start" | "join">();
 
@@ -87,6 +82,10 @@ const HomePage = () => {
                                   {interviews === undefined ? (
                                     <div className="flex justify-center py-12">
                                       <Loader2Icon className="h-8 w-8 animate-spin text-muted-foreground" />
+                                    </div>
+                                  ) : interviews === null ? (
+                                    <div className="text-center py-12 text-muted-foreground">
+                                      Please sign in to view your interviews
                                     </div>
                                   ) : interviews.length > 0 ? (
                                     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

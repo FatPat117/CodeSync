@@ -1,6 +1,5 @@
 import { useCall, useCallStateHooks } from '@stream-io/video-react-sdk';
 import { useMutation, useQuery } from 'convex/react';
-import { skipToken } from 'convex/react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import { api } from '../../convex/_generated/api';
@@ -14,9 +13,11 @@ const EndCallButton = () => {
 
   const updateInterviewStatus = useMutation(api.interview.updateInterviewStatus);
 
+  // Query will return null if call ID is not available (handled in Convex function)
+  // Use empty string as fallback to satisfy TypeScript - Convex function will handle it
   const interview = useQuery(
     api.interview.getInterviewByStreamId,
-    call?.id ? { streamCallId: call.id } : skipToken
+    call?.id ? { streamCallId: call.id } : { streamCallId: "" }
   );
 
   if(!call || !interview) return null;

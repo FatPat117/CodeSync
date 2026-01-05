@@ -48,12 +48,14 @@ export const getUserByClerkId = query({
                 clerkId: v.string(),
         },
         handler: async (ctx, args) => {
-                const user = ctx.db
+                const identity = await ctx.auth.getUserIdentity();
+                // Return null if user is not authenticated or clerkId is empty
+                if (!identity || !args.clerkId) return null;
+                const user = await ctx.db
                         .query("users")
                         .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId))
                         .first();
 
-                if (!user) throw new Error("User not found");
-                return user;
+                return user || null; // Return null if user not found
         },
 });

@@ -37,7 +37,7 @@ const useGetCalls = () =>{
 
   const now = new Date();
   const endedCalls = calls?.filter(({state:{startsAt,endedAt}}) => (startsAt && new Date(startsAt) < now ) || !!endedAt) ;
-  const upcomingCalls = calls?.filter(({state:{startsAt,endedAt}}) => (startsAt && new Date(startsAt) > now )) ;
+  const upcomingCalls = calls?.filter(({state:{startsAt}}) => (startsAt && new Date(startsAt) > now )) ;
   const liveCalls = calls?.filter(({state:{startsAt,endedAt}}) => (startsAt && new Date(startsAt) < now && !endedAt )) ;
   return {calls, isLoading, endedCalls,upcomingCalls,liveCalls};
 

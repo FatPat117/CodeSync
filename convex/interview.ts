@@ -14,7 +14,7 @@ export const getAllInterviews = query({
 export const getMyInterviews = query({
         handler: async (ctx) => {
                 const identity = await ctx.auth.getUserIdentity();
-                if (!identity) throw new Error("User is not authenticated");
+                if (!identity) return null; // Return null instead of throwing error
                 const interviews = await ctx.db
                         .query("interviews")
                         .withIndex("by_candidate_id", (q) => q.eq("candidateId", identity.subject))
@@ -30,11 +30,13 @@ export const getInterviewByStreamId = query({
                 streamCallId: v.string(),
         },
         handler: async (ctx, args) => {
+                // Return null if streamCallId is empty (user not authenticated or no call)
+                if (!args.streamCallId) return null;
                 const interview = await ctx.db
                         .query("interviews")
                         .withIndex("by_stream_call_id", (q) => q.eq("streamCallId", args.streamCallId))
                         .first();
-                return interview;
+                return interview || null;
         },
 });
 
